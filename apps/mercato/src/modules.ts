@@ -136,6 +136,9 @@ export const enabledModules: ModuleEntry[] = [
     },
   },
   { id: 'ratelimit_probe', from: '@app' },
+  // Имя продукта на экране входа. Стоит последним намеренно: словари модулей
+  // мержатся по порядку, и побеждает тот, кто объявлен позже ядра.
+  { id: 'asystem_brand', from: '@app' },
 ]
 
 // Official modules activated via official-modules.json / official-modules.local.json
