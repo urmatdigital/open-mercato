@@ -80,12 +80,9 @@ export const moduleOverrideExamples: ModuleOverrides = {
 //   gateway_stripe          Stripe
 //   shipping_carriers       Перевозчики и доставка
 //   sync_akeneo             Синхронизация с Akeneo PIM
-//   currencies              Справочник валют — нужен продажам
 //   content                 CMS-страницы
 //   portal                  Клиентский портал
 //   customer_accounts       Личные кабинеты клиентов — основа портала
-//   resources               Планирование ресурсов, типы ресурсов
-//   staff                   Сотрудники, команды, табели, отпуска
 //   messages                Сообщения
 //   communication_channels  Каналы связи (Slack, WhatsApp, почта)
 //   channel_imap            Почтовый канал IMAP
@@ -96,7 +93,6 @@ export const moduleOverrideExamples: ModuleOverrides = {
 //   data_sync               Синхронизация данных
 //   sync_excel              Импорт и выгрузка Excel
 //   business_rules          Бизнес-правила и наборы правил
-//   ai_assistant            ИИ-ассистент — провайдер не настроен
 //   api_docs                Обозреватель API
 //   onboarding              Самостоятельный онбординг — отключён и вручную
 //   translations            Редактор переводов интерфейса
@@ -119,6 +115,13 @@ export const enabledModules: ModuleEntry[] = [
   { id: 'dictionaries', from: '@open-mercato/core' },
   { id: 'feature_toggles', from: '@open-mercato/core' },
   { id: 'workflows', from: '@open-mercato/core' },
+  // Возвращены 2026-08-20: их клиентские части вшиты в оболочку и в экраны
+  // клиентов — без модуля интерфейс стучится в 404 на каждой странице.
+  // Пункты меню у них скрыты настройкой панели, а не отсутствием модуля.
+  { id: 'currencies', from: '@open-mercato/core' },   // справочник валют для сделок
+  { id: 'resources', from: '@open-mercato/core' },    // требование staff
+  { id: 'staff', from: '@open-mercato/core' },        // исполнители в задачах CRM
+  { id: 'ai_assistant', from: '@open-mercato/ai-assistant' }, // док ИИ в шапке оболочки
   { id: 'search', from: '@open-mercato/search' },
   { id: 'planner', from: '@open-mercato/core' },
   { id: 'events', from: '@open-mercato/events' },
