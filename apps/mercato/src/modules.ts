@@ -62,6 +62,48 @@ export const moduleOverrideExamples: ModuleOverrides = {
   },
 }
 
+// ── Приостановленные модули ──────────────────────────────────────────────
+// Выключены 2026-08-20: интерфейс показывал ролям три десятка разделов, из
+// которых в работе ни один. Данные и таблицы на месте — модуль просто не
+// подключается, включение обратно = вернуть строку в enabledModules.
+//
+// Порядок выключения учитывает зависимости из манифестов (`requires`):
+//   sales → catalog, customers, dictionaries · wms → catalog, sales, feature_toggles
+//   staff → planner, resources · portal → customer_accounts
+// customers, dictionaries, planner и feature_toggles остаются — они в работе.
+//
+//   catalog                 Категории, товары и услуги
+//   sales                   Заказы, каналы продаж, коммерческие предложения
+//   wms                     Склад: операционная панель, ресурсы склада
+//   checkout                Оформление заказа
+//   payment_gateways        Платёжные шлюзы, ссылки на оплату, транзакции
+//   gateway_stripe          Stripe
+//   shipping_carriers       Перевозчики и доставка
+//   sync_akeneo             Синхронизация с Akeneo PIM
+//   currencies              Справочник валют — нужен продажам
+//   content                 CMS-страницы
+//   portal                  Клиентский портал
+//   customer_accounts       Личные кабинеты клиентов — основа портала
+//   resources               Планирование ресурсов, типы ресурсов
+//   staff                   Сотрудники, команды, табели, отпуска
+//   messages                Сообщения
+//   communication_channels  Каналы связи (Slack, WhatsApp, почта)
+//   channel_imap            Почтовый канал IMAP
+//   channel_gmail           Почтовый канал Gmail
+//   inbox_ops               ИИ-действия из почты
+//   integrations            Интеграции
+//   webhooks                Вебхуки
+//   data_sync               Синхронизация данных
+//   sync_excel              Импорт и выгрузка Excel
+//   business_rules          Бизнес-правила и наборы правил
+//   ai_assistant            ИИ-ассистент — провайдер не настроен
+//   api_docs                Обозреватель API
+//   onboarding              Самостоятельный онбординг — отключён и вручную
+//   translations            Редактор переводов интерфейса
+//   example                 Демонстрационный модуль ядра (фазы A–H, витрина)
+//   ratelimit_probe         Проба ограничителя запросов
+// ─────────────────────────────────────────────────────────────────────────
+
 export const enabledModules: ModuleEntry[] = [
   { id: 'dashboards', from: '@open-mercato/core' },
   { id: 'auth', from: '@open-mercato/core' },
@@ -73,69 +115,16 @@ export const enabledModules: ModuleEntry[] = [
   { id: 'query_index', from: '@open-mercato/core' },
   { id: 'audit_logs', from: '@open-mercato/core' },
   { id: 'attachments', from: '@open-mercato/core' },
-  { id: 'catalog', from: '@open-mercato/core' },
-  { id: 'sales', from: '@open-mercato/core' },
-  { id: 'wms', from: '@open-mercato/core' },
   { id: 'api_keys', from: '@open-mercato/core' },
   { id: 'dictionaries', from: '@open-mercato/core' },
-  { id: 'content', from: '@open-mercato/content' },
-  { id: 'onboarding', from: '@open-mercato/onboarding' },
-  { id: 'api_docs', from: '@open-mercato/core' },
-  { id: 'business_rules', from: '@open-mercato/core' },
   { id: 'feature_toggles', from: '@open-mercato/core' },
   { id: 'workflows', from: '@open-mercato/core' },
   { id: 'search', from: '@open-mercato/search' },
-  { id: 'currencies', from: '@open-mercato/core' },
   { id: 'planner', from: '@open-mercato/core' },
-  { id: 'resources', from: '@open-mercato/core' },
-  { id: 'staff', from: '@open-mercato/core' },
   { id: 'events', from: '@open-mercato/events' },
   { id: 'notifications', from: '@open-mercato/core' },
   { id: 'progress', from: '@open-mercato/core' },
-  { id: 'integrations', from: '@open-mercato/core' },
-  { id: 'data_sync', from: '@open-mercato/core' },
-  { id: 'sync_excel', from: '@open-mercato/core' },
-  { id: 'messages', from: '@open-mercato/core' },
-  // Communication channels hub (SPEC-045d) — bridges external chat/email channels
-  // (Slack, WhatsApp, Email) to the unified Messages inbox. Provider packages
-  // (channel-slack, channel-whatsapp, future email providers) register adapters here.
-  { id: 'communication_channels', from: '@open-mercato/core' },
-  { id: 'ai_assistant', from: '@open-mercato/ai-assistant' },
-  { id: 'translations', from: '@open-mercato/core' },
   { id: 'scheduler', from: '@open-mercato/scheduler' },
-  { id: 'inbox_ops', from: '@open-mercato/core' },
-  { id: 'payment_gateways', from: '@open-mercato/core' },
-  { id: 'checkout', from: '@open-mercato/checkout' },
-  { id: 'gateway_stripe', from: '@open-mercato/gateway-stripe' },
-  // Per-user email channels for the Communications Hub (SPEC-045d / email
-  // integration spec). Each provider package registers its `ChannelAdapter`
-  // at import time via `setup.ts`; the hub picks them up by `providerKey`.
-  { id: 'channel_imap', from: '@open-mercato/channel-imap' },
-  { id: 'channel_gmail', from: '@open-mercato/channel-gmail' },
-  { id: 'sync_akeneo', from: '@open-mercato/sync-akeneo' },
-  { id: 'shipping_carriers', from: '@open-mercato/core' },
-  { id: 'webhooks', from: '@open-mercato/webhooks' },
-  { id: 'customer_accounts', from: '@open-mercato/core' },
-  { id: 'portal', from: '@open-mercato/core' },
-  {
-    id: 'example',
-    from: '@app',
-    overrides: {
-      routes: {
-        api: {
-          'GET /api/example/override-probe': {
-            handler: async () => Response.json({
-              ok: true,
-              source: 'modules.ts override',
-              route: 'example.override-probe',
-            }),
-            metadata: { requireAuth: false },
-          },
-        },
-      },
-    },
-  },
-  { id: 'ratelimit_probe', from: '@app' },
   // Имя продукта на экране входа. Стоит последним намеренно: словари модулей
   // мержатся по порядку, и побеждает тот, кто объявлен позже ядра.
   { id: 'asystem_brand', from: '@app' },
@@ -145,10 +134,6 @@ export const enabledModules: ModuleEntry[] = [
 // (managed by `yarn official-modules`; backed by the external/official-modules submodule).
 for (const entry of officialModuleEntries) {
   if (!enabledModules.some((existing) => existing.id === entry.id)) enabledModules.push(entry)
-}
-
-if (enabledModules.some((entry) => entry.id === 'example')) {
-  enabledModules.push({ id: 'example_customers_sync', from: '@app' })
 }
 
 if (parseBooleanWithDefault(process.env.OM_ENABLE_STORAGE_S3, false)) {
