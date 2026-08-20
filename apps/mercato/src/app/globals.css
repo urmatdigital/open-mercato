@@ -731,3 +731,87 @@ body[data-ai-chat-open="true"] .om-demo-feedback-floating {
 .om-mdx-editor .cm-dropCursor {
   border-left-color: var(--foreground);
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Тема ASYSTEM — подгонка под палитру сайта asystemreg.com
+   ───────────────────────────────────────────────────────────────────────────
+   Только переопределение значений токенов: разметка и классы апстрима не
+   трогаются, поэтому апгрейд ядра читается отдельным диффом. Источник цветов —
+   apps/web/styles/globals.css сайта (--ink #0a1730, --accent #2143ff,
+   --bg #e6eff7); интерфейс ERP держит белый фон рабочей области, фирменный
+   оттенок уходит в поверхности, границы и акцент.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Шрифты сайта; фактические файлы подключает next/font в layout.tsx */
+  --font-geist-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-geist-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --background: #ffffff;
+  --foreground: #0a1730;
+  --card: #ffffff;
+  --card-foreground: #0a1730;
+  --popover: #ffffff;
+  --popover-foreground: #0a1730;
+
+  --primary: #2143ff;
+  --primary-foreground: #ffffff;
+  --primary-hover: #0a1d8c;
+  --accent-indigo: #2143ff;
+  --accent-indigo-foreground: #ffffff;
+
+  --secondary: #eef4fa;
+  --secondary-foreground: #0a1730;
+  --muted: #eef4fa;
+  --muted-foreground: #5a6a8a;
+  --accent: #e6eff7;
+  --accent-foreground: #0a1730;
+
+  --border: #d7e2ee;
+  --input: #d7e2ee;
+  --ring: #2143ff;
+
+  --sidebar: #e6eff7;
+  --sidebar-foreground: #0a1730;
+  --sidebar-primary: #2143ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #dce8f3;
+  --sidebar-accent-foreground: #0a1730;
+  --sidebar-border: #d7e2ee;
+  --sidebar-ring: #2143ff;
+}
+
+.dark {
+  --background: #050a18;
+  --foreground: #ece8db;
+  --card: #08111f;
+  --card-foreground: #ece8db;
+  --popover: #08111f;
+  --popover-foreground: #ece8db;
+
+  --primary: #4f6bff;
+  --primary-foreground: #050a18;
+  --primary-hover: #7b90ff;
+  --accent-indigo: #4f6bff;
+  --accent-indigo-foreground: #050a18;
+
+  --secondary: #0e1a2e;
+  --secondary-foreground: #ece8db;
+  --muted: #0e1a2e;
+  --muted-foreground: #93a0bc;
+  --accent: #12203a;
+  --accent-foreground: #ece8db;
+
+  --border: rgba(236, 232, 219, 0.12);
+  --input: rgba(236, 232, 219, 0.16);
+  --ring: #4f6bff;
+
+  --sidebar: #08111f;
+  --sidebar-foreground: #ece8db;
+  --sidebar-primary: #4f6bff;
+  --sidebar-primary-foreground: #050a18;
+  --sidebar-accent: #12203a;
+  --sidebar-accent-foreground: #ece8db;
+  --sidebar-border: rgba(236, 232, 219, 0.12);
+  --sidebar-ring: #4f6bff;
+}
