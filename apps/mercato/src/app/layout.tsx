@@ -51,7 +51,7 @@ export default async function RootLayout({
           }}
         />
       </head>
-      <body className="antialiased" suppressHydrationWarning data-gramm="false">
+      <body className="antialiased asystem-shell" suppressHydrationWarning data-gramm="false">
         <AppProviders locale={locale} dict={dict} localeLocked={localeLocked} demoModeEnabled={demoModeEnabled} noticeBarsEnabled={noticeBarsEnabled}>
           {children}
         </AppProviders>
