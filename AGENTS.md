@@ -296,3 +296,18 @@ yarn db:generate          # Generate database migrations (`db:migrate` applies t
 yarn initialize           # Full project initialization
 yarn agents:check-budget  # Verify AGENTS.md files fit the agent instruction budget
 ```
+
+## Версии стека (актуальны, не понижать)
+
+Берём эти версии, не предыдущий мажор. API незнаком — context7, не память.
+
+- `node` 24.x
+- `@playwright/test` ^1.61.1
+- `@tanstack/react-query` ^5.101.2
+- `eslint` ^9.39.4
+- `next` 16.2.11
+- `pg` 8.22.0
+- `react` 19.2.7
+- `react-dom` 19.2.7
+- `typescript` 7.0.2
+- `zod` ^4.4.3
