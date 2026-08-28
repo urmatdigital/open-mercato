@@ -26,10 +26,11 @@ import {
 import { SALES_DOCUMENT_NUMBER_COLUMN_META } from './salesDocumentsColumns'
 import { useSalesChannelsEnabled } from '../useSalesChannelsEnabled'
 import { createLogger } from '@open-mercato/shared/lib/logger'
+import type { SalesEditableDocumentKind } from '../../data/entities'
 
 const logger = createLogger('sales')
 
-type SalesDocumentKind = 'order' | 'quote'
+type SalesDocumentKind = SalesEditableDocumentKind
 
 type FilterOption = { value: string; label: string; description?: string | null }
 

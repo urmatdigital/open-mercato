@@ -4,13 +4,14 @@ import { resolveTranslations } from '@open-mercato/shared/lib/i18n/server'
 import type { ObjectPreviewData } from '@open-mercato/shared/modules/messages/types'
 import type { EntityManager } from '@mikro-orm/postgresql'
 import { SalesChannel, SalesOrder, SalesQuote } from '../data/entities'
+import type { SalesEditableDocumentKind } from '../data/entities'
 
 type PreviewContext = {
   tenantId: string
   organizationId?: string | null
 }
 
-type DocumentKind = 'order' | 'quote'
+type DocumentKind = SalesEditableDocumentKind
 
 type SalesDocumentPreviewRecord = {
   id: string

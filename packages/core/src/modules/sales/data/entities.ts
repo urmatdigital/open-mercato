@@ -5,6 +5,10 @@ import type { ShipmentItemSnapshot } from '../lib/shipments/types'
 import type { SalesLineUomSnapshot } from '../lib/types'
 
 export type SalesDocumentKind = 'order' | 'quote' | 'invoice' | 'credit_memo'
+// Только order и quote имеют страницу в бэкофисе (/backend/sales/{orders,quotes}/[id])
+// и общую форму документа. SalesInvoice и SalesCreditMemo существуют как сущности,
+// но UI-маршрута не имеют — поиск возвращает для них null вместо ссылки.
+export type SalesEditableDocumentKind = Extract<SalesDocumentKind, 'order' | 'quote'>
 export type SalesLineKind = 'product' | 'service' | 'shipping' | 'discount' | 'adjustment'
 export const DEFAULT_SALES_ADJUSTMENT_KINDS = ['discount', 'tax', 'shipping', 'surcharge', 'return', 'custom'] as const
 export type SalesAdjustmentKind = (typeof DEFAULT_SALES_ADJUSTMENT_KINDS)[number] | string

@@ -59,10 +59,11 @@ import {
 import { AddressEditor, type AddressEditorDraft } from '@open-mercato/core/modules/customers/components/AddressEditor'
 import { useSalesChannelsEnabled } from '../useSalesChannelsEnabled'
 import { createLogger } from '@open-mercato/shared/lib/logger'
+import type { SalesEditableDocumentKind } from '../../data/entities'
 
 const logger = createLogger('sales')
 
-type DocumentKind = 'quote' | 'order'
+type DocumentKind = SalesEditableDocumentKind
 
 type AddressDraft = AddressEditorDraft
 

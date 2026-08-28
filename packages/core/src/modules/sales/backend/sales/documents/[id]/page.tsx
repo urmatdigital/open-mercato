@@ -52,7 +52,7 @@ import { DocumentTotals } from '@open-mercato/core/modules/sales/components/docu
 import { E } from '#generated/entities.ids.generated'
 import type { DictionarySelectLabels } from '@open-mercato/core/modules/dictionaries/components/DictionaryEntrySelect'
 import { useCurrencyDictionary } from '@open-mercato/core/modules/customers/components/detail/hooks/useCurrencyDictionary'
-import type { SalesAdjustmentKind } from '@open-mercato/core/modules/sales/data/entities'
+import type { SalesAdjustmentKind, SalesDocumentKind, SalesEditableDocumentKind } from '@open-mercato/core/modules/sales/data/entities'
 import { DictionaryValue, createDictionaryMap, renderDictionaryColor, renderDictionaryIcon, type DictionaryMap } from '@open-mercato/core/modules/dictionaries/components/dictionaryAppearance'
 import { DictionaryEntrySelect } from '@open-mercato/core/modules/dictionaries/components/DictionaryEntrySelect'
 import { useOrganizationScopeVersion } from '@open-mercato/shared/lib/frontend/useOrganizationScope'
@@ -1894,7 +1894,7 @@ export default function SalesDocumentDetailPage({
   includeAmountInMessageMetadata,
 }: {
   params: { id: string }
-  initialKind?: 'order' | 'quote'
+  initialKind?: SalesEditableDocumentKind
   includeAmountInMessageMetadata?: boolean
 }) {
   const t = useT()
@@ -2513,7 +2513,7 @@ export default function SalesDocumentDetailPage({
   )
 
   const fetchDocumentByKind = React.useCallback(
-    async (documentId: string, candidateKind: 'order' | 'quote') => {
+    async (documentId: string, candidateKind: SalesEditableDocumentKind) => {
       return fetchDocument(documentId, candidateKind, loadErrorMessage)
     },
     [loadErrorMessage]

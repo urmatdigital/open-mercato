@@ -1,8 +1,7 @@
 import type { SearchBuildContext, SearchIndexSource, SearchModuleConfig, SearchResultPresenter } from '@open-mercato/shared/modules/search'
 import type { TranslateFn } from '@open-mercato/shared/lib/i18n/context'
 import { resolveTranslations } from '@open-mercato/shared/lib/i18n/server'
-
-type SalesDocumentKind = 'order' | 'quote' | 'invoice' | 'credit_memo'
+import type { SalesDocumentKind } from './data/entities'
 
 const SALES_CONFIG_URL = '/backend/config/sales'
 const SALES_CHANNELS_URL = '/backend/sales/channels'
