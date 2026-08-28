@@ -25,6 +25,29 @@ export class Tenant {
   organizations = new Collection<Organization>(this)
 }
 
+/**
+ * An org unit — one node in a tenant's internal hierarchy (branch, department,
+ * subsidiary). It is the scope every record is filed under: the `organizationId`
+ * column carried by ~every entity in the app points here.
+ *
+ * This is NOT the party you sell to. In most ERPs "organization" means the
+ * external company; here that is `customers.CustomerEntity` (kind 'company' |
+ * 'person'), whose company details live in `CustomerCompanyProfile`. A
+ * customer's `organizationId` is the internal org unit that owns the record,
+ * not the customer's own company.
+ *
+ * The naming audit proposed renaming this to OrgUnit. Measured, the word is
+ * held by contracts rather than by being the better word: the entity id
+ * `directory:organization` is derived from this class name by the generator
+ * (packages/cli/src/lib/generators/entity-ids.ts, `toSnake(clsName)`, no
+ * override) and is stored in custom field values and query-index documents; the
+ * ACL features directory.organizations.view / .manage are granted to roles and
+ * stored in the database; `organizationId` appears ~22k times across the repo;
+ * /api/directory/organizations and the om_selected_org cookie are wire
+ * contracts. Renaming only the class would leave one concept under two names.
+ *
+ * Search for "org unit", "branch" or "department" and land here.
+ */
 @Entity({ tableName: 'organizations' })
 @Unique({ name: 'organizations_tenant_slug_uniq', properties: ['tenant', 'slug'] })
 export class Organization {

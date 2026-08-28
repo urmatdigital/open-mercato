@@ -13,6 +13,9 @@ const logger = createLogger('directory').child({ component: 'org-scope-cache' })
 
 export { parseSelectedOrganizationCookie, parseSelectedTenantCookie }
 
+// The org units (internal branches/departments) a request may read and write.
+// "Organization" here is never the customer — see the doc comment on the
+// Organization entity.
 export type OrganizationScope = {
   selectedId: string | null
   filterIds: string[] | null

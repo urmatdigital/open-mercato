@@ -5,6 +5,21 @@ import type { DictionaryEntrySortMode } from '@open-mercato/core/modules/diction
 export type CustomerEntityKind = 'person' | 'company'
 export type CustomerAddressFormat = 'line_first' | 'street_first'
 
+/**
+ * The party you sell to — the account / business partner, a company or a person
+ * (`kind`). Company details live in `CustomerCompanyProfile`, person details in
+ * `CustomerPersonProfile`.
+ *
+ * `organizationId` below is not the customer's company. It is the internal org
+ * unit (`directory.Organization`) that owns this record — the scope column every
+ * entity in the app carries. When kind = 'company', the customer's own company
+ * is this row.
+ *
+ * The `Entity` suffix means "the party", not the ORM sense of the word. It is
+ * kept because the table is customer_entities and the kind values 'company' /
+ * 'person' are a wire contract. Search for "account", "party" or "business
+ * partner" and land here.
+ */
 @Entity({ tableName: 'customer_entities' })
 @Index({ name: 'customer_entities_org_tenant_kind_idx', properties: ['organizationId', 'tenantId', 'kind'] })
 @Index({
