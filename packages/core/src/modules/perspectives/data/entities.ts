@@ -23,6 +23,17 @@ import { Entity, Index, PrimaryKey, Property } from '@mikro-orm/decorators/legac
   expression:
     'create unique index "perspectives_live_user_global_uq" on "perspectives" ("user_id", "table_id", "name") where "deleted_at" is null and "tenant_id" is null and "organization_id" is null',
 })
+/**
+ * A saved view (saved table view / view preset) — the columns, filters, sorting
+ * and page size a user or role has stored for one DataTable.
+ *
+ * The domain word elsewhere is "saved view"; this module says "perspective"
+ * throughout — module id, /api/perspectives, the DataTable `perspective` prop,
+ * the ACL features perspectives.use / perspectives.role_defaults, and the
+ * perspectives / role_perspectives tables. The name is kept because those are
+ * contract surfaces (roles hold the ACL ids in the database), not because
+ * "perspective" is the better word. Search for either term and land here.
+ */
 export class Perspective {
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   id!: string

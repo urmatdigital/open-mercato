@@ -16,6 +16,8 @@ import { createLogger } from '@open-mercato/shared/lib/logger'
 
 const logger = createLogger('perspectives').child({ component: 'perspective-service' })
 
+// Perspective == saved table view. See the doc comment on the Perspective
+// entity for why the module keeps this name.
 export type PerspectiveScope = {
   userId: string
   tenantId?: string | null
