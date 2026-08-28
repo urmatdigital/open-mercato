@@ -1841,6 +1841,8 @@ export class SalesNote {
 @Entity({ tableName: 'sales_document_addresses' })
 @Index({ name: 'sales_document_addresses_scope_idx', properties: ['organizationId', 'tenantId'] })
 export class SalesDocumentAddress {
+  [OptionalProps]?: 'createdAt' | 'updatedAt'
+
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   id!: string
 
@@ -1918,6 +1920,8 @@ export class SalesDocumentAddress {
 @Index({ name: 'sales_document_tags_scope_idx', properties: ['organizationId', 'tenantId'] })
 @Unique({ name: 'sales_document_tags_slug_unique', properties: ['organizationId', 'tenantId', 'slug'] })
 export class SalesDocumentTag {
+  [OptionalProps]?: 'createdAt' | 'updatedAt'
+
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   id!: string
 

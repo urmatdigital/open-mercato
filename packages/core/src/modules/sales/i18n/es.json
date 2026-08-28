@@ -496,6 +496,7 @@
   "sales.documents.adjustments.title": "Ajustes",
   "sales.documents.adjustments.untitled": "Sin título",
   "sales.documents.adjustments.updated": "Ajuste actualizado.",
+  "sales.documents.adjustments.retry": "Reintentar",
   "sales.documents.create.title": "Crear documento de ventas",
   "sales.documents.detail.addresses.add": "Agregar dirección",
   "sales.documents.detail.addresses.additional": "Direcciones adicionales",

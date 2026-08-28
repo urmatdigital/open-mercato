@@ -1,4 +1,6 @@
 // @ts-nocheck
+// Debt, measured 2026-08-29: dropping this flag surfaces 17 type errors (9 of them background E.* from modules disabled in the app; the rest are real).
+// The flag comes off one file at a time — see .agents/audits/naming-core-2026-08-29.md
 
 import { registerCommand, type CommandHandler } from '@open-mercato/shared/lib/commands'
 import { LockMode } from '@mikro-orm/core'

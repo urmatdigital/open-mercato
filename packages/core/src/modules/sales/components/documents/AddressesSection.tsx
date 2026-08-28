@@ -1,4 +1,3 @@
-// @ts-nocheck
 
 "use client"
 
@@ -75,13 +74,16 @@ const emptyDraft: AddressEditorDraft = {
   isPrimary: false,
 }
 
-function normalizeAddressDraft(draft?: AddressEditorDraft | null): Record<string, unknown> | null {
+// Returns a partial draft rather than Record<string, unknown>: callers read fields
+// by name (normalized?.name), and with unknown every such read was a type error.
+function normalizeAddressDraft(draft?: AddressEditorDraft | null): Partial<AddressEditorDraft> | null {
   if (!draft) return null
-  const normalized: Record<string, unknown> = {}
-  const assign = (key: keyof AddressEditorDraft, target: string) => {
+  const normalized: Partial<AddressEditorDraft> = {}
+  const bag = normalized as Record<string, unknown>
+  const assign = (key: keyof AddressEditorDraft, target: keyof AddressEditorDraft) => {
     const value = draft[key]
-    if (typeof value === 'string' && value.trim().length) normalized[target] = value.trim()
-    if (typeof value === 'boolean') normalized[target] = value
+    if (typeof value === 'string' && value.trim().length) bag[target] = value.trim()
+    if (typeof value === 'boolean') bag[target] = value
   }
   assign('name', 'name')
   assign('purpose', 'purpose')
@@ -328,7 +330,7 @@ export function SalesDocumentAddressesSection({
       )
       if (call.ok && Array.isArray(call.result?.items)) {
         const mapped = call.result.items
-          .map((item) => {
+          .map((item): DocumentAddressAssignment | null => {
             const id = typeof item.id === 'string' ? item.id : null
             if (!id) return null
             const read = (keys: string[]) => readStringField(item, keys)

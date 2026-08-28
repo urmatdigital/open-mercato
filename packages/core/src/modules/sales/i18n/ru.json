@@ -496,6 +496,7 @@
   "sales.documents.adjustments.title": "Корректировки",
   "sales.documents.adjustments.untitled": "Без названия",
   "sales.documents.adjustments.updated": "Корректировка обновлена.",
+  "sales.documents.adjustments.retry": "Повторить",
   "sales.documents.create.title": "Создать документ продажи",
   "sales.documents.detail.addresses.add": "Добавить адрес",
   "sales.documents.detail.addresses.additional": "Дополнительные адреса",
