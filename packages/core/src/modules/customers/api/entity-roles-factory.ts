@@ -9,6 +9,7 @@ import { resolveTranslations } from '@open-mercato/shared/lib/i18n/server'
 import { findOneWithDecryption, findWithDecryption } from '@open-mercato/shared/lib/encryption/find'
 import { isOrganizationReadAccessAllowed } from '@open-mercato/core/modules/directory/utils/organizationScopeGuard'
 import { User } from '@open-mercato/core/modules/auth/data/entities'
+import type { CustomerEntityKind } from '@open-mercato/core/modules/customers/data/entities'
 import type { RbacService } from '@open-mercato/core/modules/auth/services/rbacService'
 import { CustomerEntity, CustomerEntityRole } from '../data/entities'
 import { entityRoleCreateSchema, entityRoleUpdateSchema, entityRoleDeleteSchema, type EntityRoleCreateInput, type EntityRoleUpdateInput, type EntityRoleDeleteInput } from '../data/validators'
@@ -49,11 +50,10 @@ const okResponseSchema = z.object({ ok: z.boolean() })
 const createResponseSchema = z.object({ id: z.string().uuid() })
 const errorSchema = z.object({ error: z.string() })
 
-type EntityType = 'company' | 'person'
 
 type Translator = Awaited<ReturnType<typeof resolveTranslations>>['translate']
 
-function getRoleContext(entityType: EntityType, entityId: string) {
+function getRoleContext(entityType: CustomerEntityKind, entityId: string) {
   const resourceKind = entityType === 'company' ? 'customers.company' : 'customers.person'
   return { entityType, entityId, resourceKind, resourceId: entityId }
 }
@@ -118,7 +118,7 @@ async function resolveEntityRouteScope(
   em: Awaited<ReturnType<typeof resolveCustomersRequestContext>>['em'],
   auth: Awaited<ReturnType<typeof resolveCustomersRequestContext>>['auth'],
   scope: Awaited<ReturnType<typeof resolveCustomersRequestContext>>['scope'],
-  entityType: EntityType,
+  entityType: CustomerEntityKind,
   entityId: string,
   translate: Translator,
 ) {
@@ -144,7 +144,7 @@ async function resolveRoleRouteScope(
   em: Awaited<ReturnType<typeof resolveCustomersRequestContext>>['em'],
   auth: Awaited<ReturnType<typeof resolveCustomersRequestContext>>['auth'],
   scope: Awaited<ReturnType<typeof resolveCustomersRequestContext>>['scope'],
-  entityType: EntityType,
+  entityType: CustomerEntityKind,
   entityId: string,
   roleId: string,
   translate: Translator,
@@ -190,7 +190,7 @@ export const entityRolesMetadata = {
   DELETE: { requireAuth: true, requireFeatures: ['customers.roles.manage'] },
 }
 
-export function buildEntityRolesOpenApi(entityType: EntityType): OpenApiRouteDoc {
+export function buildEntityRolesOpenApi(entityType: CustomerEntityKind): OpenApiRouteDoc {
   const label = entityType === 'company' ? 'company' : 'person'
   return {
     tag: 'Customers',
@@ -240,7 +240,7 @@ export function buildEntityRolesOpenApi(entityType: EntityType): OpenApiRouteDoc
   }
 }
 
-export function createEntityRolesHandlers(entityType: EntityType) {
+export function createEntityRolesHandlers(entityType: CustomerEntityKind) {
   const resourceKind = entityType === 'company' ? 'customers.company' : 'customers.person'
   const logPrefix = entityType === 'company' ? 'customers.company.roles' : 'customers.person.roles'
 

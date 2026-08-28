@@ -1,5 +1,38 @@
 import { Entity, Index, PrimaryKey, Property } from '@mikro-orm/decorators/legacy'
 
+/**
+ * Custom objects and custom fields — the EAV extensibility layer.
+ *
+ * "Entity" means three different things in this codebase. Which one you want
+ * decides where to look:
+ *
+ *   1. ORM entity — any `@Entity`-decorated class. The MikroORM sense, used
+ *      everywhere including this file.
+ *   2. Custom object / user-defined entity — a data type an admin creates at
+ *      runtime, or a code-defined one they attach custom fields to. That is
+ *      `CustomEntity` below, and it is what this whole module is about. The
+ *      ecosystem calls it a custom object (Salesforce) or a custom model
+ *      (Odoo); we call it a custom entity.
+ *   3. The party you sell to — `customers.CustomerEntity`. Unrelated to both.
+ *      See the doc comment there.
+ *
+ * The naming audit proposed renaming this module's public surface to
+ * custom-entities / custom-fields. The labels already say so: the module
+ * declares title "Custom Entities & Fields" (index.ts), the nav group is "Data
+ * Designer", and the pages are "System Entities" / "User Entities". What is
+ * left is the module id `entities`, and it is a contract, not a label: it is
+ * the prefix of every /api/entities/* route (~250 call sites, derived from the
+ * module id by the registry generator), of the ACL features
+ * entities.definitions.* and entities.records.* (98 references, granted to
+ * roles and stored in the database), and of 249 i18n keys. It is also part of
+ * the published create-app template. Renaming only the paths would leave one
+ * concept under two names — the defect 4fcafb3 removed from sales document
+ * kinds.
+ *
+ * Search for "custom object", "custom field", "EAV" or "user-defined entity"
+ * and land here.
+ */
+
 // Definitions of custom fields scoped to an entity type and organization
 @Entity({ tableName: 'custom_field_defs' })
 @Index({

@@ -1,4 +1,12 @@
-Custom Fields module: stores dynamic field definitions and values (EAV) for any entity.
+Custom Entities & Fields module (module id `entities`): user-defined data types
+— custom objects — plus dynamic field definitions and values (EAV) for any entity.
+
+Naming: "entity" is overloaded three ways here — the ORM `@Entity` class, the
+custom object this module manages, and `customers.CustomerEntity` (the party you
+sell to). The module id `entities` is kept because it is the prefix of the
+/api/entities/* routes, the `entities.*` ACL features held by roles in the
+database, and the `entities.*` i18n keys. See the doc comment at the top of
+`data/entities.ts`.
 
 Overview
 - Two tables:
