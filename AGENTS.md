@@ -171,12 +171,12 @@ Full policy — label taxonomy, priority/risk inference tables, pipeline transit
 
 ### Packages (`packages/`)
 
-All packages use the `@open-mercato/<package>` naming convention: **shared** (cross-cutting utilities, types, DSL helpers, i18n, data engine), **ui**, **core** (business modules: auth, catalog, customers, sales), **cli**, **cache** (always via DI, never raw Redis/SQLite), **queue** (background jobs via the worker contract, never custom queues), **events**, **search**, **ai-assistant**, **content**, **onboarding**, **enterprise** (commercial-only modules and overlays).
+All packages use the `@open-mercato/<package>` naming convention (the sole exception is `packages/create-app`, published as `create-mercato-app`): **shared** (cross-cutting utilities, types, DSL helpers, i18n, data engine), **ui**, **core** (business modules: auth, catalog, customers, sales), **cli**, **cache** (always via DI, never raw Redis/SQLite), **queue** (background jobs via the worker contract, never custom queues), **events**, **search**, **ai-assistant**, **content**, **onboarding**, **enterprise** (commercial-only modules and overlays).
 
 ### Where to Put Code
 
 - Put core platform features in `packages/<package>/src/modules/<module>/`
-- Put every external integration provider in a dedicated npm workspace package under `packages/<provider-package>/` (for example `packages/gateway-stripe`, `packages/carrier-inpost`) — do not add provider modules inside `packages/core/src/modules/`
+- Put every external integration provider in a dedicated npm workspace package under `packages/<provider-package>/` (for example `packages/gateway-stripe`, `packages/channel-gmail`) — do not add provider modules inside `packages/core/src/modules/`
 - Put shared utilities and types in `packages/shared/src/lib/` or `packages/shared/src/modules/`
 - Put UI components in `packages/ui/src/`
 - Put user/app-specific modules in `apps/mercato/src/modules/<module>/`
@@ -287,7 +287,6 @@ These are critical project-wide rules. The top-level `Always`, `Ask First`, and 
 
 ```bash
 yarn dev                  # Compact dev runtime; press `d` for raw logs (`:verbose`, `:app`, `:greenfield` variants)
-yarn dev:reset            # Clear .mercato/next/dev plus legacy .next caches when Turbopack serves stale chunks
 yarn build                # Build everything (`build:packages` / `build:app` for one side)
 yarn lint                 # Lint all packages
 yarn test                 # Run unit tests (`test:integration` for Playwright, headless)

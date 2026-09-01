@@ -82,7 +82,6 @@ Skills come from two places. Repo-local skills (module scaffolding, UI design, t
 | Prepare / reuse a local test environment (shared descriptor for QA + integration tests) | `om-prepare-test-env` (external — invoked by `om-integration-tests` when no environment is running) |
 | Configure or re-configure the agent PR pipeline (`.ai/agentic.config.json`, tracker, labels, QA gate) | `om-setup-agent-pipeline` (external) |
 | Sync installed pipeline artifacts after `yarn install-skills` refreshed the collection | `om-apply-upgrade-notes` (external) |
-| Upgrade framework from 0.4.10 to 0.5.0 | `.ai/skills/om-auto-upgrade-0.4.10-to-0.5.0/SKILL.md` |
 
 ### Agent Automation / Auto-Skills
 
