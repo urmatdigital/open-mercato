@@ -399,6 +399,7 @@ export const searchConfig: SearchModuleConfig = {
   entities: [
     {
       entityId: 'sales:sales_channel',
+      aclFeatures: ['sales.channels.manage'],
       enabled: true,
       priority: 7,
       buildSource: async (ctx) => {
@@ -425,6 +426,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_order',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 10,
       buildSource: async (ctx) => {
@@ -448,6 +450,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_quote',
+      aclFeatures: ['sales.quotes.view'],
       enabled: true,
       priority: 10,
       buildSource: async (ctx) => {
@@ -470,6 +473,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_order_line',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 7,
       fieldPolicy: {
@@ -498,6 +502,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_quote_line',
+      aclFeatures: ['sales.quotes.view'],
       enabled: true,
       priority: 7,
       fieldPolicy: {
@@ -526,6 +531,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_order_adjustment',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 6,
       buildSource: async (ctx) => {
@@ -546,6 +552,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_quote_adjustment',
+      aclFeatures: ['sales.quotes.view'],
       enabled: true,
       priority: 6,
       buildSource: async (ctx) => {
@@ -566,6 +573,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_shipment',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 6,
       buildSource: async (ctx) => {
@@ -586,6 +594,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_shipment_item',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 5,
       buildSource: async (ctx) => {
@@ -604,6 +613,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_invoice',
+      aclFeatures: ['sales.invoices.manage'],
       enabled: true,
       priority: 6,
       buildSource: async (ctx) => {
@@ -624,6 +634,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_invoice_line',
+      aclFeatures: ['sales.invoices.manage'],
       enabled: true,
       priority: 5,
       fieldPolicy: {
@@ -650,6 +661,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_credit_memo',
+      aclFeatures: ['sales.credit_memos.manage'],
       enabled: true,
       priority: 6,
       buildSource: async (ctx) => {
@@ -670,6 +682,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_credit_memo_line',
+      aclFeatures: ['sales.credit_memos.manage'],
       enabled: true,
       priority: 5,
       fieldPolicy: {
@@ -696,6 +709,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_payment',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 8,
       buildSource: async (ctx) => {
@@ -716,6 +730,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_payment_allocation',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 5,
       buildSource: async (ctx) => {
@@ -736,7 +751,8 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_note',
-      enabled: true,
+      aclFeatures: ['sales.orders.view'],
+      enabled: false,
       priority: 7,
       buildSource: async (ctx) => {
         const { t: translate } = await resolveTranslations()
@@ -759,7 +775,8 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_document_address',
-      enabled: true,
+      aclFeatures: ['sales.orders.view'],
+      enabled: false,
       priority: 7,
       buildSource: async (ctx) => {
         const { t: translate } = await resolveTranslations()
@@ -785,6 +802,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_shipping_method',
+      aclFeatures: ['sales.settings.manage'],
       enabled: true,
       priority: 4,
       buildSource: async (ctx) => {
@@ -805,6 +823,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_delivery_window',
+      aclFeatures: ['sales.settings.manage'],
       enabled: true,
       priority: 4,
       buildSource: async (ctx) => {
@@ -825,6 +844,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_payment_method',
+      aclFeatures: ['sales.settings.manage'],
       enabled: true,
       priority: 4,
       buildSource: async (ctx) => {
@@ -845,6 +865,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_tax_rate',
+      aclFeatures: ['sales.settings.manage'],
       enabled: true,
       priority: 4,
       buildSource: async (ctx) => {
@@ -865,6 +886,7 @@ export const searchConfig: SearchModuleConfig = {
     },
     {
       entityId: 'sales:sales_document_tag',
+      aclFeatures: ['sales.orders.view'],
       enabled: true,
       priority: 3,
       buildSource: async (ctx) => {

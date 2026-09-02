@@ -25,6 +25,7 @@ export function LanguageSwitcher() {
     es: t('common.languages.spanish', 'Español'),
     de: t('common.languages.german', 'Deutsch'),
     ru: t('common.languages.russian', 'Русский'),
+    ko: t('common.languages.korean', '한국어'),
   }
 
   async function setLocale(locale: Locale) {

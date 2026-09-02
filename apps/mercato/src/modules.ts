@@ -27,6 +27,7 @@ export const moduleOverrideExamples: ModuleOverrides = {
   ai: {
     agents: { 'catalog.catalog_assistant': null },
     tools: { inbox_ops_accept_action: null },
+    extensions: [], // additive AiAgentExtension[]; do not use null-map semantics
   },
   routes: {
     api: { 'DELETE /api/example/items': null },
@@ -59,6 +60,11 @@ export const moduleOverrideExamples: ModuleOverrides = {
   di: { exampleService: null },
   encryption: {
     maps: { 'example:item': null },
+  },
+  nav: {
+    // Prepends sidebar nav group ids ahead of the built-in ordering; unnamed groups keep their
+    // current position. Applied beneath role and per-user sidebar preferences.
+    groupOrder: ['example.nav.group'],
   },
 }
 
@@ -112,6 +118,7 @@ export const enabledModules: ModuleEntry[] = [
   { id: 'audit_logs', from: '@open-mercato/core' },
   { id: 'attachments', from: '@open-mercato/core' },
   { id: 'api_keys', from: '@open-mercato/core' },
+  { id: 'devices', from: '@open-mercato/core' },
   { id: 'dictionaries', from: '@open-mercato/core' },
   { id: 'feature_toggles', from: '@open-mercato/core' },
   { id: 'workflows', from: '@open-mercato/core' },
@@ -130,6 +137,10 @@ export const enabledModules: ModuleEntry[] = [
   { id: 'scheduler', from: '@open-mercato/scheduler' },
   // Имя продукта на экране входа. Стоит последним намеренно: словари модулей
   // мержатся по порядку, и побеждает тот, кто объявлен позже ядра.
+  // payment_gateways в паузе по смыслу, но в 0.7.0 его id есть и в core, и в
+  // shared: генератор фактов модулей требует выбрать провайдера, иначе сборка
+  // падает. Включён с core, из панели убирается видимостью, как остальные.
+  { id: 'payment_gateways', from: '@open-mercato/core' },
   { id: 'asystem_brand', from: '@app' },
 ]
 

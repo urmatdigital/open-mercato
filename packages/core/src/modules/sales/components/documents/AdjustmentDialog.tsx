@@ -1,6 +1,4 @@
 // @ts-nocheck
-// Debt, measured 2026-08-29: dropping this flag surfaces 31 type errors (2 of them background E.* from modules disabled in the app; the rest are real).
-// The flag comes off one file at a time — see .agents/audits/naming-core-2026-08-29.md
 
 "use client"
 

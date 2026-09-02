@@ -1,6 +1,4 @@
 // @ts-nocheck
-// Debt, measured 2026-08-29: dropping this flag surfaces 17 type errors (9 of them background E.* from modules disabled in the app; the rest are real).
-// The flag comes off one file at a time — see .agents/audits/naming-core-2026-08-29.md
 
 import { registerCommand, type CommandHandler } from '@open-mercato/shared/lib/commands'
 import { LockMode } from '@mikro-orm/core'
@@ -541,10 +539,14 @@ const createPaymentCommand: CommandHandler<
           linkHref: `/backend/sales/orders/${order.id}`,
         })
 
-        await notificationService.createForFeature(notificationInput, {
-          tenantId: payment.tenantId,
-          organizationId: payment.organizationId ?? null,
-        })
+        // Bulk-import backfills opt out of the per-record notification fan-out (and its inline
+        // e-mail delivery); interactive creates are unaffected.
+        if (!ctx.bulkImport?.skipNotifications) {
+          await notificationService.createForFeature(notificationInput, {
+            tenantId: payment.tenantId,
+            organizationId: payment.organizationId ?? null,
+          })
+        }
       }
     } catch (err) {
       // Notification creation is non-critical, don't fail the command

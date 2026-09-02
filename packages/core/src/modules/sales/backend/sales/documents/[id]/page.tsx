@@ -1,10 +1,10 @@
 // @ts-nocheck
-// Debt, measured 2026-08-29: dropping this flag surfaces 57 type errors (2 of them background E.* from modules disabled in the app; the rest are real).
-// The flag comes off one file at a time — see .agents/audits/naming-core-2026-08-29.md
 
 "use client"
 
 import * as React from 'react'
+import { extensionPoints } from '@open-mercato/core/modules/sales/extension-points'
+import { resolveExtensionPointPattern } from '@open-mercato/shared/modules/widgets/extension-points'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { Page, PageBody } from '@open-mercato/ui/backend/Page'
 import {
@@ -54,7 +54,7 @@ import { DocumentTotals } from '@open-mercato/core/modules/sales/components/docu
 import { E } from '#generated/entities.ids.generated'
 import type { DictionarySelectLabels } from '@open-mercato/core/modules/dictionaries/components/DictionaryEntrySelect'
 import { useCurrencyDictionary } from '@open-mercato/core/modules/customers/components/detail/hooks/useCurrencyDictionary'
-import type { SalesAdjustmentKind, SalesDocumentKind, SalesEditableDocumentKind } from '@open-mercato/core/modules/sales/data/entities'
+import type { SalesAdjustmentKind } from '@open-mercato/core/modules/sales/data/entities'
 import { DictionaryValue, createDictionaryMap, renderDictionaryColor, renderDictionaryIcon, type DictionaryMap } from '@open-mercato/core/modules/dictionaries/components/dictionaryAppearance'
 import { DictionaryEntrySelect } from '@open-mercato/core/modules/dictionaries/components/DictionaryEntrySelect'
 import { useOrganizationScopeVersion } from '@open-mercato/shared/lib/frontend/useOrganizationScope'
@@ -1896,7 +1896,7 @@ export default function SalesDocumentDetailPage({
   includeAmountInMessageMetadata,
 }: {
   params: { id: string }
-  initialKind?: SalesEditableDocumentKind
+  initialKind?: 'order' | 'quote'
   includeAmountInMessageMetadata?: boolean
 }) {
   const t = useT()
@@ -1951,7 +1951,10 @@ export default function SalesDocumentDetailPage({
     () => (record?.id ? `sales-document:${kind}:${record.id}` : `sales-document:${kind}:pending`),
     [kind, record?.id],
   )
-  const detailsInjectionSpotId = React.useMemo(() => `sales.document.detail.${kind}:details`, [kind])
+  const detailsInjectionSpotId = React.useMemo(
+    () => resolveExtensionPointPattern(extensionPoints.hosts.documentDetail.pattern, { kind, surface: 'details' }),
+    [kind],
+  )
   const { runMutation, retryLastMutation } = useGuardedMutation<{
     kind: SalesDocumentKind
     record: DocumentRecord | null
@@ -2515,7 +2518,7 @@ export default function SalesDocumentDetailPage({
   )
 
   const fetchDocumentByKind = React.useCallback(
-    async (documentId: string, candidateKind: SalesEditableDocumentKind) => {
+    async (documentId: string, candidateKind: 'order' | 'quote') => {
       return fetchDocument(documentId, candidateKind, loadErrorMessage)
     },
     [loadErrorMessage]
@@ -3990,7 +3993,10 @@ export default function SalesDocumentDetailPage({
   const { payload: backendChromePayload, isReady: backendChromeReady } = useBackendChrome()
   const canComposeMessages = backendChromeReady && hasFeature(backendChromePayload?.grantedFeatures, 'messages.compose')
 
-  const tabInjectionSpotId = React.useMemo(() => `sales.document.detail.${kind}:tabs`, [kind])
+  const tabInjectionSpotId = React.useMemo(
+    () => resolveExtensionPointPattern(extensionPoints.hosts.documentDetail.pattern, { kind, surface: 'tabs' }),
+    [kind],
+  )
   const { widgets: injectedTabWidgets } = useInjectionWidgets(tabInjectionSpotId, {
     context: detailInjectionContext,
     triggerOnLoad: true,
@@ -4265,7 +4271,7 @@ export default function SalesDocumentDetailPage({
             onAddComment={appendShipmentComment}
           />
           <InjectionSpot
-            spotId="detail:sales.order:shipping"
+            spotId={extensionPoints.hosts.orderShipping.spotId}
             context={detailInjectionContext}
             data={record}
             onDataChange={(next) => setRecord(next as unknown as DocumentRecord)}
