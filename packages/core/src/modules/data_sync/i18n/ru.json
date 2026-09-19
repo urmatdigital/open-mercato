@@ -95,7 +95,7 @@
   "data_sync.integrationTab.start": "Запустить сейчас",
   "data_sync.integrationTab.starting": "Запуск...",
   "data_sync.integrationTab.title": "Расписания синхронизации",
-  "data_sync.nav.title": "Data Sync",
+  "data_sync.nav.title": "Синхронизация данных",
   "data_sync.runs.detail.back": "Назад к запускам синхронизации",
   "data_sync.runs.detail.cancel": "Отмена",
   "data_sync.runs.detail.cancelError": "Не удалось отменить синхронизацию",

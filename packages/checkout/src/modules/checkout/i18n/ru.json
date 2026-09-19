@@ -126,7 +126,7 @@
   "checkout.customerFieldsEditor.options.add": "Добавить вариант",
   "checkout.customerFieldsEditor.options.defaultLabel": "Вариант {index}",
   "checkout.customerFieldsEditor.options.label": "Метка",
-  "checkout.customerFieldsEditor.options.placeholders.label": "Starter",
+  "checkout.customerFieldsEditor.options.placeholders.label": "Начальный",
   "checkout.customerFieldsEditor.options.placeholders.value": "starter",
   "checkout.customerFieldsEditor.options.title": "Варианты",
   "checkout.customerFieldsEditor.options.value": "Значение",

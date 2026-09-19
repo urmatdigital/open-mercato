@@ -1145,7 +1145,7 @@
   "workflows.triggers.operators.notIn": "Не в (массиве)",
   "workflows.triggers.operators.regex": "Совпадение по регулярному выражению",
   "workflows.triggers.operators.startsWith": "Начинается с",
-  "workflows.triggers.placeholders.defaultValue": "default",
+  "workflows.triggers.placeholders.defaultValue": "по умолчанию",
   "workflows.triggers.placeholders.description": "Опишите, когда этот триггер должен срабатывать...",
   "workflows.triggers.placeholders.eventPattern": "sales.orders.updated",
   "workflows.triggers.placeholders.name": "Триггер согласования заказа",

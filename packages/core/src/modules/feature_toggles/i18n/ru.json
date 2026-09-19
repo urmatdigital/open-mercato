@@ -85,12 +85,12 @@
   "feature_toggles.overrides.headers.overrideState": "Состояние переопределения",
   "feature_toggles.overrides.headers.tenant": "Тенант",
   "feature_toggles.overrides.help.title": "Переопределения флагов функций",
-  "feature_toggles.types.boolean": "Boolean",
+  "feature_toggles.types.boolean": "Логический",
   "feature_toggles.types.json": "JSON",
-  "feature_toggles.types.number": "Number",
-  "feature_toggles.types.string": "String",
-  "feature_toggles.values.false": "False",
+  "feature_toggles.types.number": "Числовой",
+  "feature_toggles.types.string": "Строковый",
+  "feature_toggles.values.false": "Ложь",
   "feature_toggles.values.no": "Нет",
-  "feature_toggles.values.true": "True",
+  "feature_toggles.values.true": "Истина",
   "feature_toggles.values.yes": "Да"
 }

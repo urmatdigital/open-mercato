@@ -1,0 +1,11 @@
+{
+  "exampleCustomersSync.errors.invalidCursor": "Недопустимый курсор.",
+  "exampleCustomersSync.errors.invalidJson": "Недопустимое тело JSON.",
+  "exampleCustomersSync.errors.mappingsLoadFailed": "Не удалось загрузить сопоставления синхронизации клиентов Example.",
+  "exampleCustomersSync.errors.organizationContextRequired": "Требуется контекст организации.",
+  "exampleCustomersSync.errors.organizationScopeMismatch": "Несоответствие области видимости организации.",
+  "exampleCustomersSync.errors.reconcileEnqueueFailed": "Не удалось поставить в очередь сверку синхронизации клиентов Example.",
+  "exampleCustomersSync.errors.tenantScopeMismatch": "Несоответствие области видимости тенанта.",
+  "exampleCustomersSync.errors.unauthorized": "Не авторизовано",
+  "exampleCustomersSync.errors.validationFailed": "Проверка не пройдена"
+}
