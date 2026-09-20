@@ -1,8 +1,25 @@
 import { registerAppDictionaryLoader } from '@open-mercato/shared/lib/i18n/server'
+import { registerLocales } from '@open-mercato/shared/lib/i18n/locale-registry'
 import type { Locale } from '@open-mercato/shared/lib/i18n/config'
 import { registerModules } from '@open-mercato/shared/lib/modules/registry'
 import type { Module } from '@open-mercato/shared/modules/registry'
 import { loadI18nModules } from '@/.mercato/generated/modules.i18n.loaders.generated'
+
+// Русский — локаль этого форка, а не платформы: ru-словари лежат в самих
+// пакетах (~17.4k ключей), но апстрим их не отгружает. Оба уровня из
+// .ai/specs/2026-09-03-extensible-locale-set.md: declare module расширяет
+// Locale для тайпчека приложения, registerLocales — служимый набор в рантайме.
+// Так `packages/shared` остаётся байт-в-байт апстримным и не конфликтует на
+// каждом релизе.
+declare module '@open-mercato/shared/lib/i18n/config' {
+  interface LocaleRegistry {
+    ru: true
+  }
+}
+
+// Модуль импортируется из `src/bootstrap-common.ts` (и из корневого layout),
+// то есть регистрация проходит на том же бутстрапе, что и модули приложения.
+registerLocales(['ru'])
 
 function registerLoadedLocaleModules(
   localeModules: Module[],
