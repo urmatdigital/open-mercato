@@ -1,4 +1,9 @@
-import { registerAppDictionaryLoader, registerLocales } from '@open-mercato/shared/lib/i18n/server'
+import { registerAppDictionaryLoader } from '@open-mercato/shared/lib/i18n/server'
+// UPGRADE_NOTES points at `.../i18n/server`, which re-exports this. We import
+// from the defining module instead because this file's own tests jest.mock
+// `.../i18n/server` wholesale, and a mock without `registerLocales` turns the
+// module-scope call below into a TypeError at import time.
+import { registerLocales } from '@open-mercato/shared/lib/i18n/locale-registry'
 import type { Locale } from '@open-mercato/shared/lib/i18n/config'
 import { registerModules } from '@open-mercato/shared/lib/modules/registry'
 import type { Module } from '@open-mercato/shared/modules/registry'

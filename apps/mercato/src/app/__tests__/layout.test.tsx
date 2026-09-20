@@ -8,6 +8,11 @@ import type { ReactElement, ReactNode } from 'react'
 jest.mock('next/font/google', () => ({
   Geist: () => ({ variable: 'geist-sans' }),
   Geist_Mono: () => ({ variable: 'geist-mono' }),
+  // Fork (ASYSTEM): the layout loads Inter / JetBrains Mono instead, for the
+  // Cyrillic subsets the Geist pair does not ship. A mock missing them makes
+  // layout.tsx throw at import time, which reads as three unrelated failures.
+  Inter: () => ({ variable: 'geist-sans' }),
+  JetBrains_Mono: () => ({ variable: 'geist-mono' }),
 }))
 
 jest.mock('../globals.css', () => ({}))
