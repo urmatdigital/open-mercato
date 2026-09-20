@@ -89,8 +89,6 @@ export const moduleOverrideExamples: ModuleOverrides = {
 //   content                 CMS-страницы
 //   portal                  Клиентский портал
 //   customer_accounts       Личные кабинеты клиентов — основа портала
-//   messages                Сообщения
-//   communication_channels  Каналы связи (Slack, WhatsApp, почта)
 //   channel_imap            Почтовый канал IMAP
 //   channel_gmail           Почтовый канал Gmail
 //   inbox_ops               ИИ-действия из почты
@@ -141,6 +139,16 @@ export const enabledModules: ModuleEntry[] = [
   // shared: генератор фактов модулей требует выбрать провайдера, иначе сборка
   // падает. Включён с core, из панели убирается видимостью, как остальные.
   { id: 'payment_gateways', from: '@open-mercato/core' },
+  // phone_calls — та же история, что у payment_gateways: в 0.8.0 его id есть и в
+  // core, и в shared, и генератор фактов модулей (module-facts-discovery)
+  // валит сборку CLI, пока провайдер не выбран. Из панели убран видимостью.
+  { id: 'phone_calls', from: '@open-mercato/core' },
+  // Возвращены 2026-09-20 под канал Telegram: communication_channels — хаб
+  // адаптеров (providerKey → ChannelAdapter), messages — инбокс, в который он
+  // складывает переписку. Пакеты каналов (channel-telegram и прочие)
+  // подключаются отдельными строками, хаб без них просто пуст.
+  { id: 'messages', from: '@open-mercato/core' },
+  { id: 'communication_channels', from: '@open-mercato/core' },
   { id: 'asystem_brand', from: '@app' },
 ]
 

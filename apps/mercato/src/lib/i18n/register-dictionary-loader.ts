@@ -1,5 +1,4 @@
-import { registerAppDictionaryLoader } from '@open-mercato/shared/lib/i18n/server'
-import { registerLocales } from '@open-mercato/shared/lib/i18n/locale-registry'
+import { registerAppDictionaryLoader, registerLocales } from '@open-mercato/shared/lib/i18n/server'
 import type { Locale } from '@open-mercato/shared/lib/i18n/config'
 import { registerModules } from '@open-mercato/shared/lib/modules/registry'
 import type { Module } from '@open-mercato/shared/modules/registry'
