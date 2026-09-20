@@ -31,10 +31,19 @@ const DOCKERFILE = 'Dockerfile'
  * stack trace — `yarn install --immutable` sees a lockfile entry whose manifest
  * is not in the context. channel-telegram cost one failed prod deploy to learn.
  */
-export function missingFromDockerfile(workspaces, dockerfile) {
-  // BOTH blocks, not one: the deps stage and the runtime stage each copy the
-  // manifests, and a package present in only one fails the later stage.
-  return workspaces.filter((name) => dockerfile.split(`COPY packages/${name}/package.json`).length - 1 < 2)
+function manifestCopies(name, dockerfile) {
+  // Two spellings: `COPY packages/x/package.json` in the build stages and
+  // `COPY --from=builder /app/packages/x/package.json` in the runner.
+  return dockerfile.split(`packages/${name}/package.json`).length - 1
+}
+
+export function missingFromDockerfile(workspaces, dockerfile, reference = 'core') {
+  // The count is not hardcoded: every workspace must be copied as many times as
+  // `packages/core` is. Three stages copy manifests today and the first fix
+  // caught only two of them, which cost a second failed deploy.
+  const expected = manifestCopies(reference, dockerfile)
+  if (expected === 0) return ['<Dockerfile has no packages/core manifest copy — check the reference>']
+  return workspaces.filter((name) => manifestCopies(name, dockerfile) < expected)
 }
 
 const MODULES_FILE = 'apps/mercato/src/modules.ts'

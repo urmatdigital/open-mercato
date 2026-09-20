@@ -360,6 +360,7 @@ COPY --from=builder /app/packages/channel-gmail/package.json ./packages/channel-
 COPY --from=builder /app/packages/channel-imap/package.json ./packages/channel-imap/
 COPY --from=builder /app/packages/channel-resend/package.json ./packages/channel-resend/
 COPY --from=builder /app/packages/channel-ses/package.json ./packages/channel-ses/
+COPY --from=builder /app/packages/channel-telegram/package.json ./packages/channel-telegram/
 COPY --from=builder /app/packages/checkout/package.json ./packages/checkout/
 COPY --from=builder /app/packages/cli/package.json ./packages/cli/
 COPY --from=builder /app/packages/content/package.json ./packages/content/
