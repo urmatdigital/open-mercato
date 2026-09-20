@@ -149,6 +149,7 @@ export const enabledModules: ModuleEntry[] = [
   // подключаются отдельными строками, хаб без них просто пуст.
   { id: 'messages', from: '@open-mercato/core' },
   { id: 'communication_channels', from: '@open-mercato/core' },
+  { id: 'channel_telegram', from: '@open-mercato/channel-telegram' },
   { id: 'asystem_brand', from: '@app' },
 ]
 
