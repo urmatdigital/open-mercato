@@ -59,6 +59,7 @@ COPY packages/channel-gmail/package.json ./packages/channel-gmail/
 COPY packages/channel-imap/package.json ./packages/channel-imap/
 COPY packages/channel-resend/package.json ./packages/channel-resend/
 COPY packages/channel-ses/package.json ./packages/channel-ses/
+COPY packages/channel-telegram/package.json ./packages/channel-telegram/
 COPY packages/checkout/package.json ./packages/checkout/
 COPY packages/cli/package.json ./packages/cli/
 COPY packages/content/package.json ./packages/content/
@@ -171,6 +172,7 @@ COPY packages/channel-gmail/package.json ./packages/channel-gmail/
 COPY packages/channel-imap/package.json ./packages/channel-imap/
 COPY packages/channel-resend/package.json ./packages/channel-resend/
 COPY packages/channel-ses/package.json ./packages/channel-ses/
+COPY packages/channel-telegram/package.json ./packages/channel-telegram/
 COPY packages/checkout/package.json ./packages/checkout/
 COPY packages/cli/package.json ./packages/cli/
 COPY packages/content/package.json ./packages/content/

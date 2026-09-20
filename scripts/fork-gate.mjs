@@ -19,9 +19,24 @@
 //
 // Usage: yarn gate
 import { spawn } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 
 const STEPS = ['build:packages', 'generate', 'typecheck']
+const DOCKERFILE = 'Dockerfile'
+
+/**
+ * The image installs dependencies from a hand-written list of workspace
+ * manifests (`COPY packages/<name>/package.json …`, twice). A workspace missing
+ * from that list is invisible locally and fails the BUILD with a yarn resolver
+ * stack trace — `yarn install --immutable` sees a lockfile entry whose manifest
+ * is not in the context. channel-telegram cost one failed prod deploy to learn.
+ */
+export function missingFromDockerfile(workspaces, dockerfile) {
+  // BOTH blocks, not one: the deps stage and the runtime stage each copy the
+  // manifests, and a package present in only one fails the later stage.
+  return workspaces.filter((name) => dockerfile.split(`COPY packages/${name}/package.json`).length - 1 < 2)
+}
+
 const MODULES_FILE = 'apps/mercato/src/modules.ts'
 // `@open-mercato/core:typecheck: src/modules/<id>/…: error TS…`
 const CORE_ERROR = /^@open-mercato\/core:typecheck:\s+(?:\.\.\/core\/)?src\/modules\/([a-z_]+)\/\S*.*error TS/
@@ -61,6 +76,15 @@ function run(step) {
 
 async function main() {
   const enabled = readEnabledModuleIds(readFileSync(MODULES_FILE, 'utf8'))
+  const workspaces = readdirSync('packages', { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && existsSync(`packages/${entry.name}/package.json`))
+    .map((entry) => entry.name)
+  const missing = missingFromDockerfile(workspaces, readFileSync(DOCKERFILE, 'utf8'))
+  if (missing.length) {
+    console.error(`fork-gate: FAIL — ${DOCKERFILE} does not copy the manifest of: ${missing.join(', ')}`)
+    console.error('  The image would fail on `yarn install --immutable`. Add a COPY line in BOTH manifest blocks.')
+    process.exit(1)
+  }
   if (enabled.size === 0) {
     console.error(`fork-gate: read no enabled modules from ${MODULES_FILE} — refusing to exempt anything.`)
     process.exit(1)
